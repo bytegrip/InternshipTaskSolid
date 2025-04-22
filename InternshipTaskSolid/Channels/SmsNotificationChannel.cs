@@ -1,13 +1,16 @@
+using InternshipTaskSolid.Notifications;
+using InternshipTaskSolid.Users;
+
 namespace InternshipTaskSolid.Channels;
 
 public class SmsNotificationChannel : INotificationChannel
 {
-    public NotificationChannelType ChannelType => NotificationChannelType.Sms;
+    public NotificationType ChannelType => NotificationType.Sms;
 
-    public void Send(string recipient, string subject, string message)
+    public void Send(Notification notification, User user)
     {
-        Console.WriteLine($"Sending SMS to {recipient}");
-        Console.WriteLine($"Message: {subject} - {message}");
-        Console.WriteLine("SMS sent successfully!");
+        Console.WriteLine($"SMS to {user.PhoneNumber}:");
+        Console.WriteLine($"{notification.FormatTitle}: {notification.FormatContent}");
+        Console.WriteLine();
     }
 }

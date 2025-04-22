@@ -5,5 +5,5 @@ namespace InternshipTaskSolid.Senders;
 
 public interface INotificationSender
 {
-    void SendNotification(Notification notification, NotificationChannelType channelType = NotificationChannelType.Push);
+    void SendNotification(Notification notification);
 }

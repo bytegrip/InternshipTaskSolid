@@ -1,9 +1,10 @@
 namespace InternshipTaskSolid.Users;
 
-public class User
+public class User(int id, string name, string email, string phoneNumber, string deviceToken)
 {
-    public required string Id { get; set; }
-    public required string Name { get; set; }
-    public required string Email { get; set; }
-    public required string PhoneNumber { get; set; }
+    public int Id { get; } = id;
+    public string Name { get; } = name;
+    public string Email { get; } = email;
+    public string PhoneNumber { get; } = phoneNumber;
+    public string DeviceToken { get; } = deviceToken;
 }

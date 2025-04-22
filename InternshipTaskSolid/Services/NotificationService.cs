@@ -1,34 +1,35 @@
 using InternshipTaskSolid.Channels;
+using InternshipTaskSolid.Notifications;
+using InternshipTaskSolid.Users;
 
 namespace InternshipTaskSolid.Services;
 
-public class NotificationService(List<INotificationChannel> channels)
+public class NotificationService
 {
+    private readonly Dictionary<NotificationType, INotificationChannel> _channels = new();
+
     public void AddChannel(INotificationChannel channel)
     {
-        channels.Add(channel);
+        _channels[channel.ChannelType] = channel;
     }
 
-    public void Send(string recipient, string subject, string message, NotificationChannelType? channelType = null)
+    public void SendNotification(Notification notification, User user, NotificationType type)
     {
-        if (channelType == null)
+        if (_channels.TryGetValue(type, out var channel))
         {
-            foreach (var channel in channels)
-            {
-                channel.Send(recipient, subject, message);
-            }
+            channel.Send(notification, user);
         }
         else
         {
-            var channel = channels.Find(c => c.ChannelType == channelType);
-            if (channel != null)
-            {
-                channel.Send(recipient, subject, message);
-            }
-            else
-            {
-                throw new ArgumentException($"Notification channel '{channelType}' not found.");
-            }
+            Console.WriteLine($"No channel available for notification type: {type}");
+        }
+    }
+
+    public void SendToAllChannels(Notification notification, User user)
+    {
+        foreach (var channel in _channels.Values)
+        {
+            channel.Send(notification, user);
         }
     }
 }

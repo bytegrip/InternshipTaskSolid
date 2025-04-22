@@ -1,7 +1,10 @@
+using InternshipTaskSolid.Notifications;
+using InternshipTaskSolid.Users;
+
 namespace InternshipTaskSolid.Channels;
 
 public interface INotificationChannel
 {
-    void Send(string recipient, string subject, string message);
-    NotificationChannelType ChannelType { get; }
+    NotificationType ChannelType { get; }
+    void Send(Notification notification, User user);
 }

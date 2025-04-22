@@ -1,14 +1,16 @@
+using InternshipTaskSolid.Notifications;
+using InternshipTaskSolid.Users;
+
 namespace InternshipTaskSolid.Channels;
 
 public class PushNotificationChannel : INotificationChannel
 {
-    public NotificationChannelType ChannelType => NotificationChannelType.Push;
+    public NotificationType ChannelType => NotificationType.Push;
 
-    public void Send(string recipient, string subject, string message)
+    public void Send(Notification notification, User user)
     {
-        Console.WriteLine($"Sending Push Notification to {recipient}'s device");
-        Console.WriteLine($"Title: {subject}");
-        Console.WriteLine($"Body: {message}");
-        Console.WriteLine("Push notification sent successfully!");
+        Console.WriteLine($"PUSH to device {user.DeviceToken}:");
+        Console.WriteLine($"{notification.FormatTitle}: {notification.FormatContent}");
+        Console.WriteLine();
     }
 }
